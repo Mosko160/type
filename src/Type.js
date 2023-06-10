@@ -25,6 +25,8 @@ class Type extends React.Component {
         document.getElementById(id).className = '';
         return;
       }
+      if (!(event.keyCode > 64 && event.keyCode < 91 || event.keyCode == 32))
+        return;
       var id = this.letters[this.written].props.id;
       if (pressed == this.letters[this.written].props.children)
         document.getElementById(id).className = 'correctLetter';
