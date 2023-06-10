@@ -18,7 +18,10 @@ letter {
 
 .wrongLetter {
   color: #ca4754;
-  height: 54em;
+}
+
+.overLetter {
+  color: #70131c;
 }
 
 .correctLetter {

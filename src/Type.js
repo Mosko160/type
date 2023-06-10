@@ -11,7 +11,7 @@ class Type extends React.Component {
       this.words = data;
       this.phrase = data.reduce((w1, w2) => w1 + ' ' + w2.value, '').replace(/^./, '');
       var temp = this.phrase.split('');
-      this.letters = temp.map((l, index) => <letter id={l + index}>{l}</letter>);
+      this.letters = temp.map((l, index) => <letter id={l + index} value={l}>{l}</letter>);
       this.written = 0;
       this.forceUpdate();
     });
@@ -23,15 +23,23 @@ class Type extends React.Component {
           this.written--;
         var id = this.letters[this.written].props.id;
         document.getElementById(id).className = '';
+        if (this.letters[this.written].props.value == ' ')
+          document.getElementById(id).innerHTML = ' ';
         return;
       }
       if (!(event.keyCode > 64 && event.keyCode < 91 || event.keyCode == 32))
         return;
       var id = this.letters[this.written].props.id;
-      if (pressed == this.letters[this.written].props.children)
+      if (pressed == this.letters[this.written].props.value)
         document.getElementById(id).className = 'correctLetter';
-      else
-        document.getElementById(id).className = 'wrongLetter';
+      else {
+        var le = document.getElementById(id);
+        if (le.attributes[1].value == ' ') {
+          le.innerHTML = pressed;
+          le.className = 'overLetter';
+        } else
+          le.className = 'wrongLetter';
+      }
       this.written++;
     })
   }
