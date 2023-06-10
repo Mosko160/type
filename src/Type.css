@@ -1,0 +1,40 @@
+.phrase {
+  font-size: 2em;
+  border: 0;
+  color: #5e5e5e;
+}
+
+.caret {
+  height: 2em;
+  width: 2px;
+  background-color: #9fff38;
+  animation: blink-animation 1s infinite;
+}
+
+letter {
+  color: #5e5e5e;
+  font-size: 2em;
+}
+
+.wrongLetter {
+  color: #ca4754;
+  height: 54em;
+}
+
+.correctLetter {
+  color: #d1d0c5;
+  height: 2em;
+}
+
+.wrapper {
+  width: 60%;
+}
+
+@keyframes blink-animation {
+  0%, 50% {
+    visibility: visible;
+  }
+  51%, 100% {
+    visibility: hidden;
+  }
+}
