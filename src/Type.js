@@ -18,37 +18,68 @@ class Type extends React.Component {
 
     window.addEventListener('keydown', (event) => {
       var pressed = event.key;
-      if (pressed == 'Backspace') {
-        if (this.written != 0)
-          this.written--;
-        var id = this.letters[this.written].props.id;
-        document.getElementById(id).className = '';
-        if (this.letters[this.written].props.value == ' ')
-          document.getElementById(id).innerHTML = ' ';
-        return;
-      }
+      if (pressed == 'Backspace')
+        this.backspace_pressed();
       if (!(event.keyCode > 64 && event.keyCode < 91 || event.keyCode == 32))
         return;
-      var id = this.letters[this.written].props.id;
-      if (pressed == this.letters[this.written].props.value)
-        document.getElementById(id).className = 'correctLetter';
-      else {
-        var le = document.getElementById(id);
-        if (le.attributes[1].value == ' ') {
-          le.innerHTML = pressed;
-          le.className = 'overLetter';
-        } else
-          le.className = 'wrongLetter';
-      }
-      this.written++;
+      this.letter_pressed(pressed);
     })
+  }
+
+  letter_pressed(pressed) {
+    var id = this.letters[this.written].props.id;
+    var le = document.getElementById(id);
+    if (pressed == this.letters[this.written].props.value)
+      le.className = 'correctLetter';
+    else {
+      if (le.attributes[1].value == ' ') {
+        le.innerHTML = pressed;
+        le.className = 'overLetter';
+      } else
+        le.className = 'wrongLetter';
+    }
+    if (this.written != 0) {
+      var post = this.letters[this.written - 1].props.id;
+      post = document.getElementById(post);
+      post.innerHTML = post.attributes[1].value;
+    }
+    this.written++;
+    var caret = document.createElement('div');
+    caret.className = 'caret';
+    le.appendChild(caret);
+    if (this.written == 1)
+      document.getElementsByClassName('caretInit')[0].innerHTML = '';
+  }
+
+  backspace_pressed() {
+    if (this.written == 0)
+      return;
+    var post = this.letters[this.written - 1].props.id;
+    post = document.getElementById(post);
+    post.innerHTML = post.attributes[1].value;
+    this.written--;
+    var id = this.letters[this.written].props.id;
+    document.getElementById(id).className = '';
+    if (this.letters[this.written].props.value == ' ')
+      document.getElementById(id).innerHTML = ' ';
+    var caret = document.createElement('div');
+    caret.className = 'caret';
+    if (this.written != 0) {
+      id = this.letters[this.written - 1].props.id;
+      document.getElementById(id).appendChild(caret);
+    }
+    else
+      document.getElementsByClassName('caretInit')[0].appendChild(caret);
+    return;
   }
 
   render() {
     return (
       <React.Fragment>
         <div className='wrapper'>
-          <div className='caret' />
+          <div className='caretInit'>
+            <div className='caret' />
+          </div>
           {this.letters}
         </div>
       </React.Fragment>

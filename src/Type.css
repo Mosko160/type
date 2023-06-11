@@ -5,10 +5,19 @@
 }
 
 .caret {
-  height: 2em;
+  height: 1em;
   width: 2px;
   background-color: #9fff38;
   animation: blink-animation 1s infinite;
+  display: inline-block;
+}
+
+.caretInit {
+  display: inline-block;
+}
+
+.caretInit .caret{
+  height: 2em;
 }
 
 letter {
