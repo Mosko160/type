@@ -29,8 +29,10 @@ class Type extends React.Component {
   letter_pressed(pressed) {
     var id = this.letters[this.written].props.id;
     var le = document.getElementById(id);
-    if (pressed == this.letters[this.written].props.value)
+    if (pressed == this.letters[this.written].props.value) {
       le.className = 'correctLetter';
+      le.attributes[2].value = pressed;
+    }
     else {
       if (le.attributes[1].value == ' ') {
         le.innerHTML = pressed;
