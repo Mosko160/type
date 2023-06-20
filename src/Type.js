@@ -11,7 +11,7 @@ class Type extends React.Component {
       this.words = data;
       this.phrase = data.reduce((w1, w2) => w1 + ' ' + w2.value, '').replace(/^./, '');
       var temp = this.phrase.split('');
-      this.letters = temp.map((l, index) => <letter id={l + index} value={l}>{l}</letter>);
+      this.letters = temp.map((l, index) => <letter id={l + index} value={l} data={l}>{l}</letter>);
       this.written = 0;
       this.forceUpdate();
     });
@@ -35,13 +35,14 @@ class Type extends React.Component {
       if (le.attributes[1].value == ' ') {
         le.innerHTML = pressed;
         le.className = 'overLetter';
+        le.attributes[2].value = pressed;
       } else
         le.className = 'wrongLetter';
     }
     if (this.written != 0) {
       var post = this.letters[this.written - 1].props.id;
       post = document.getElementById(post);
-      post.innerHTML = post.attributes[1].value;
+      post.innerHTML = post.attributes[2].value;
     }
     this.written++;
     var caret = document.createElement('div');
